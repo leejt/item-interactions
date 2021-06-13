@@ -263,6 +263,7 @@ public class ItemInteractionsPlugin extends Plugin
 
 		sendMessage(String.format("%s %s. Sending...", readable, addendum));
 		typedIds.remove(secondEntity);
+		recentInteractions.add(new Interaction(actionType, secondEntity));
 		submit(interactable, type);
 		reset();
 	}

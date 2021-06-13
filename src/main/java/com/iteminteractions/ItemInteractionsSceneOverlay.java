@@ -18,6 +18,7 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
+import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
 class ItemInteractionsSceneOverlay extends Overlay
@@ -137,6 +138,7 @@ class ItemInteractionsSceneOverlay extends Overlay
 						graphics.draw(objectClickbox);
 						graphics.setColor(new Color(PURPLE.getRed(), PURPLE.getGreen(), PURPLE.getBlue(), 20));
 						graphics.fill(objectClickbox);
+						OverlayUtil.renderTileOverlay(graphics, tileObject, "ID: " + tileObject.getId(), PURPLE);
 					}
 				}
 			}
