@@ -162,7 +162,7 @@ public class ItemInteractionsPlugin extends Plugin
 	}
 
 	@Schedule(
-		period = 300,
+		period = 60,
 		unit = ChronoUnit.SECONDS,
 		asynchronous = true
 	)
