@@ -19,6 +19,7 @@ public class ItemInteractionsItemOverlay extends WidgetItemOverlay
 	private final ItemInteractionsPlugin plugin;
 
 	private static final Color PURPLE = new Color(170, 0, 255);
+	private static final Color RED = new Color(255, 0, 0);
 
 	@Inject
 	ItemInteractionsItemOverlay(Client client, ItemInteractionsPlugin plugin, TooltipManager tooltipManager)
@@ -37,8 +38,14 @@ public class ItemInteractionsItemOverlay extends WidgetItemOverlay
 			return;
 		}
 
+		Color color = PURPLE;
+		if (plugin.getIds().getUnsureItemIds().contains(itemId))
+		{
+			color = RED;
+		}
+
 		Point location = widgetItem.getCanvasLocation();
-		graphics.setColor(PURPLE);
+		graphics.setColor(color);
 		graphics.drawRect(location.getX() + 26, location.getY() + 22, 6, 6);
 	}
 }

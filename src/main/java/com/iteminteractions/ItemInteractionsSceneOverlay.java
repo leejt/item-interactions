@@ -22,6 +22,7 @@ import net.runelite.client.ui.overlay.OverlayPriority;
 class ItemInteractionsSceneOverlay extends Overlay
 {
 	private static final Color PURPLE = new Color(170, 0, 255);
+	private static final Color RED = new Color(255, 0, 0);
 
 	private static final int MAX_DISTANCE = 2400;
 
@@ -60,15 +61,21 @@ class ItemInteractionsSceneOverlay extends Overlay
 			return;
 		}
 
+		Color color = PURPLE;
+		if (plugin.getIds().getUnsureNpcIds().contains(npc.getId()))
+		{
+			color = RED;
+		}
+
 		Shape objectClickbox = npc.getConvexHull();
 		if (objectClickbox == null)
 		{
 			return;
 		}
 
-		graphics.setColor(PURPLE);
+		graphics.setColor(color);
 		graphics.draw(objectClickbox);
-		graphics.setColor(new Color(PURPLE.getRed(), PURPLE.getGreen(), PURPLE.getBlue(), 20));
+		graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 20));
 		graphics.fill(objectClickbox);	}
 
 	private void renderTileObjects(Graphics2D graphics)
@@ -132,9 +139,14 @@ class ItemInteractionsSceneOverlay extends Overlay
 					Shape objectClickbox = tileObject.getClickbox();
 					if (objectClickbox != null)
 					{
-						graphics.setColor(PURPLE);
+						Color color = PURPLE;
+						if (plugin.getIds().getUnsureObjectIds().contains(tileObject.getId()))
+						{
+							color = RED;
+						}
+						graphics.setColor(color);
 						graphics.draw(objectClickbox);
-						graphics.setColor(new Color(PURPLE.getRed(), PURPLE.getGreen(), PURPLE.getBlue(), 20));
+						graphics.setColor(new Color(color.getRed(), color.getGreen(), color.getBlue(), 20));
 						graphics.fill(objectClickbox);
 					}
 				}

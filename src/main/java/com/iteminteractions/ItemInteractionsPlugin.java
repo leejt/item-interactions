@@ -95,6 +95,9 @@ public class ItemInteractionsPlugin extends Plugin
 		new HashSet<Integer>(),
 		new HashSet<Integer>(),
 		new HashSet<Integer>(),
+		new HashSet<Integer>(),
+		new HashSet<Integer>(),
+		new HashSet<Integer>(),
 		new HashSet<Integer>()
 	);
 
@@ -214,19 +217,25 @@ public class ItemInteractionsPlugin extends Plugin
 		}
 
 		Set<Integer> typedIds;
+		Set<Integer> unsureTypedIds;
+
 		String type;
 		switch (actionType)
 		{
 			case ITEM_USE_ON_GAME_OBJECT:
 				typedIds = ids.getObjectIds();
+				unsureTypedIds = ids.getUnsureObjectIds();
 				type = "object";
 				break;
 			case ITEM_USE_ON_NPC:
 				typedIds = ids.getNpcIds();
+				unsureTypedIds = ids.getUnsureNpcIds();
 				type = "npc";
 				break;
 			case ITEM_USE_ON_WIDGET_ITEM:
 				typedIds = ids.getItemIds();
+				unsureTypedIds = ids.getUnsureItemIds();
+
 				type = "item";
 				break;
 			default:
@@ -271,6 +280,7 @@ public class ItemInteractionsPlugin extends Plugin
 		else
 		{
 			sendMessage("We didn't see NIH. The object/NPC might have interactions for all items. Sending...");
+			unsureTypedIds.add(secondEntity);
 		}
 		submit(interactable, type, sawNIH);
 		reset();
@@ -340,6 +350,7 @@ public class ItemInteractionsPlugin extends Plugin
 			{
 				sendMessage(TOO_FAST);
 				lastTick = client.getTickCount();
+				reset();
 				return;
 			}
 
@@ -405,7 +416,7 @@ public class ItemInteractionsPlugin extends Plugin
 	@Subscribe
 	public void onGameTick(GameTick event)
 	{
-		if (!waitingForNIH || actionType == MenuAction.ITEM_USE_ON_WIDGET_ITEM)
+		if (!waitingForNIH)
 		{
 			return;
 		}
