@@ -9,7 +9,6 @@ import net.runelite.api.Client;
 import net.runelite.api.Constants;
 import net.runelite.api.GameObject;
 import net.runelite.api.NPC;
-import net.runelite.api.NPCComposition;
 import net.runelite.api.Player;
 import net.runelite.api.Scene;
 import net.runelite.api.Tile;
@@ -18,7 +17,6 @@ import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
 import net.runelite.client.ui.overlay.OverlayPosition;
 import net.runelite.client.ui.overlay.OverlayPriority;
-import net.runelite.client.ui.overlay.OverlayUtil;
 
 @Singleton
 class ItemInteractionsSceneOverlay extends Overlay
@@ -138,7 +136,6 @@ class ItemInteractionsSceneOverlay extends Overlay
 						graphics.draw(objectClickbox);
 						graphics.setColor(new Color(PURPLE.getRed(), PURPLE.getGreen(), PURPLE.getBlue(), 20));
 						graphics.fill(objectClickbox);
-						OverlayUtil.renderTileOverlay(graphics, tileObject, "ID: " + tileObject.getId(), PURPLE);
 					}
 				}
 			}
