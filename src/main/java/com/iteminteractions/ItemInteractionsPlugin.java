@@ -206,7 +206,7 @@ public class ItemInteractionsPlugin extends Plugin
 		});
 	}
 
-	public void processNIH(boolean interactable)
+	public void processNIH(boolean interactable, boolean sawNIH)
 	{
 		if (actionType == null)
 		{
@@ -245,33 +245,41 @@ public class ItemInteractionsPlugin extends Plugin
 			reset();
 			return;
 		}
-		String addendum = "has no interactions at all.";
-		if (interactable)
-		{
-			addendum = "has interactions!";
-		}
-		if (menuTarget == null)
-		{
-			menuTarget = "";
-		}
-		String readable = Text.removeTags(menuTarget);
-		String[] parts = readable.split(" -> ");
-		if (parts.length == 2)
-		{
-			readable = parts[1];
-		}
 
-		sendMessage(String.format("%s %s. Sending...", readable, addendum));
-		typedIds.remove(secondEntity);
-		recentInteractions.add(new Interaction(actionType, secondEntity));
-		submit(interactable, type);
+		if (sawNIH)
+		{
+			String addendum = "has no interactions at all.";
+			if (interactable)
+			{
+				addendum = "has interactions!";
+			}
+			if (menuTarget == null)
+			{
+				menuTarget = "";
+			}
+			String readable = Text.removeTags(menuTarget);
+			String[] parts = readable.split(" -> ");
+			if (parts.length == 2)
+			{
+				readable = parts[1];
+			}
+
+			sendMessage(String.format("%s %s. Sending...", readable, addendum));
+			typedIds.remove(secondEntity);
+			recentInteractions.add(new Interaction(actionType, secondEntity));
+		}
+		else
+		{
+			sendMessage("We didn't see NIH. The object/NPC might have interactions for all items. Sending...");
+		}
+		submit(interactable, type, sawNIH);
 		reset();
 	}
 
-	private void submit(boolean interactable, String type)
+	private void submit(boolean interactable, String type, boolean sawNIH)
 	{
 		SubmissionData data = new SubmissionData(type, firstItem, secondEntity,
-			menuTarget, interactable, client.getLocalPlayer().getName());
+			menuTarget, interactable, client.getLocalPlayer().getName(), sawNIH);
 
 		Request request = new Request.Builder()
 			.url(SUBMIT_URL)
@@ -386,7 +394,7 @@ public class ItemInteractionsPlugin extends Plugin
 		String message = event.getMessage();
 		if (message.equals(NOTHING_INTERESTING_HAPPENS))
 		{
-			processNIH(type == ChatMessageType.GAMEMESSAGE);
+			processNIH(type == ChatMessageType.GAMEMESSAGE, true);
 		}
 		else if (message.equals(CANT_REACH))
 		{
@@ -412,9 +420,7 @@ public class ItemInteractionsPlugin extends Plugin
 		{
 			if (client.getTickCount() - tickOfLastMove >= MOVEMENT_TOLERANCE)
 			{
-				sendMessage("We didn't see NIH. The object/NPC might have interactions for all items.");
-				sendMessage(String.format("Contact Cook#2222 on Discord to manually fix this case. Thanks! ID: %d", secondEntity));
-				reset();
+				processNIH(false, false);
 			}
 		}
 	}
