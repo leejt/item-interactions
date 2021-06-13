@@ -1,2 +1,2 @@
-# Example
-An example greeter plugin
+# Item Interactions
+See https://osrs.wiki/RS:NIH for more!
