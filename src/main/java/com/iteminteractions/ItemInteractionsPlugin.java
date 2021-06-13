@@ -308,7 +308,7 @@ public class ItemInteractionsPlugin extends Plugin
 
 	private void reset()
 	{
-		firstItem = -2;
+		firstItem = -1;
 		secondEntity = -1;
 		actionType = null;
 		menuTarget = null;
