@@ -355,7 +355,7 @@ public class ItemInteractionsPlugin extends Plugin
 			|| action == MenuAction.ITEM_USE_ON_NPC
 			|| action == MenuAction.ITEM_USE_ON_WIDGET_ITEM)
 		{
-			if (client.getTickCount() - lastTick <= DELAY_TOLERANCE)
+			if (client.getTickCount() - lastTick <= DELAY_TOLERANCE || waitingForNIH)
 			{
 				sendMessage(TOO_FAST);
 				lastTick = client.getTickCount();
