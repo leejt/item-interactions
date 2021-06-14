@@ -30,6 +30,9 @@ class ItemInteractionsSceneOverlay extends Overlay
 	private final ItemInteractionsPlugin plugin;
 
 	@Inject
+	private ItemInteractionsConfig config;
+
+	@Inject
 	private ItemInteractionsSceneOverlay(Client client, ItemInteractionsPlugin plugin)
 	{
 		setPosition(OverlayPosition.DYNAMIC);
@@ -64,6 +67,10 @@ class ItemInteractionsSceneOverlay extends Overlay
 		Color color = PURPLE;
 		if (plugin.getIds().getUnsureNpcIds().contains(npc.getId()))
 		{
+			if (!config.showUnsure())
+			{
+				return;
+			}
 			color = RED;
 		}
 
@@ -142,6 +149,10 @@ class ItemInteractionsSceneOverlay extends Overlay
 						Color color = PURPLE;
 						if (plugin.getIds().getUnsureObjectIds().contains(tileObject.getId()))
 						{
+							if (!config.showUnsure())
+							{
+								return;
+							}
 							color = RED;
 						}
 						graphics.setColor(color);

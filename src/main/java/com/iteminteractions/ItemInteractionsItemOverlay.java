@@ -2,12 +2,9 @@ package com.iteminteractions;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import net.runelite.api.Client;
-import net.runelite.api.ItemID;
 import net.runelite.api.Point;
-import net.runelite.api.Varbits;
 import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.overlay.WidgetItemOverlay;
 import net.runelite.client.ui.overlay.tooltip.TooltipManager;
@@ -20,6 +17,9 @@ public class ItemInteractionsItemOverlay extends WidgetItemOverlay
 
 	private static final Color PURPLE = new Color(170, 0, 255);
 	private static final Color RED = new Color(255, 0, 0);
+
+	@Inject
+	private ItemInteractionsConfig config;
 
 	@Inject
 	ItemInteractionsItemOverlay(Client client, ItemInteractionsPlugin plugin, TooltipManager tooltipManager)
@@ -41,6 +41,10 @@ public class ItemInteractionsItemOverlay extends WidgetItemOverlay
 		Color color = PURPLE;
 		if (plugin.getIds().getUnsureItemIds().contains(itemId))
 		{
+			if (!config.showUnsure())
+			{
+				return;
+			}
 			color = RED;
 		}
 

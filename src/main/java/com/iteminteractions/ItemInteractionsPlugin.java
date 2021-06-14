@@ -4,6 +4,7 @@ import com.google.common.collect.EvictingQueue;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import com.google.inject.Provides;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,6 +33,7 @@ import net.runelite.client.chat.ChatColorType;
 import net.runelite.client.chat.ChatMessageBuilder;
 import net.runelite.client.chat.ChatMessageManager;
 import net.runelite.client.chat.QueuedMessage;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
@@ -75,6 +77,7 @@ public class ItemInteractionsPlugin extends Plugin
 	private Gson gson;
 
 	final TypeToken<Map<String, Collection<Integer>>> typeToken = new TypeToken<Map<String, Collection<Integer>>>(){};
+	static final String CONFIG_GROUP_KEY = "item-interactions";
 
 	private int firstItem = -1;
 	private int secondEntity = -1;
@@ -130,6 +133,12 @@ public class ItemInteractionsPlugin extends Plugin
 	{
 		overlayManager.remove(sceneOverlay);
 		overlayManager.remove(itemOverlay);
+	}
+
+	@Provides
+	ItemInteractionsConfig getConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(ItemInteractionsConfig.class);
 	}
 
 	private void sendMessage(String message)
