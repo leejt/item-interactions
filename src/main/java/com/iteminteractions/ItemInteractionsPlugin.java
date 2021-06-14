@@ -350,7 +350,6 @@ public class ItemInteractionsPlugin extends Plugin
 	@Subscribe
 	public void onMenuOptionClicked(MenuOptionClicked event)
 	{
-		System.out.println(event);
 		MenuAction action = event.getMenuAction();
 		if (action == MenuAction.ITEM_USE_ON_GAME_OBJECT
 			|| action == MenuAction.ITEM_USE_ON_NPC
