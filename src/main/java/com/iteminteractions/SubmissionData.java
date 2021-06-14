@@ -12,5 +12,6 @@ public class SubmissionData
 	private final boolean interactable;
 	private final String username;
 	private final boolean sawNIH;
+	private final String versionNumber;
 
 }

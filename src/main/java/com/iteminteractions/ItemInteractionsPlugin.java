@@ -76,6 +76,8 @@ public class ItemInteractionsPlugin extends Plugin
 	@Inject
 	private Gson gson;
 
+	private static final String VERSION_NUMBER = "1.1";
+
 	final TypeToken<Map<String, Collection<Integer>>> typeToken = new TypeToken<Map<String, Collection<Integer>>>(){};
 	static final String CONFIG_GROUP_KEY = "item-interactions";
 
@@ -298,7 +300,7 @@ public class ItemInteractionsPlugin extends Plugin
 	private void submit(boolean interactable, String type, boolean sawNIH)
 	{
 		SubmissionData data = new SubmissionData(type, firstItem, secondEntity,
-			menuTarget, interactable, client.getLocalPlayer().getName(), sawNIH);
+			menuTarget, interactable, client.getLocalPlayer().getName(), sawNIH, VERSION_NUMBER);
 
 		Request request = new Request.Builder()
 			.url(SUBMIT_URL)
