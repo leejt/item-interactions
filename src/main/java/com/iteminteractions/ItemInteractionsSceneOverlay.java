@@ -48,10 +48,7 @@ class ItemInteractionsSceneOverlay extends Overlay
 		renderTileObjects(graphics);
 		for (NPC npc : client.getNpcs())
 		{
-			if (plugin.getIds().getNpcIds().contains(npc.getId()))
-			{
-				renderNpc(graphics, npc);
-			}
+			renderNpc(graphics, npc);
 		}
 		return null;
 	}
@@ -62,13 +59,13 @@ class ItemInteractionsSceneOverlay extends Overlay
 		{
 			return;
 		}
-		if (!plugin.getIds().getNpcIds().contains(npc.getId()))
+		if (!plugin.getIds().getNpcIds().contains(npc.getComposition().getId()))
 		{
 			return;
 		}
 
 		Color color = PURPLE;
-		if (plugin.getIds().getUnsureNpcIds().contains(npc.getId()))
+		if (plugin.getIds().getUnsureNpcIds().contains(npc.getComposition().getId()))
 		{
 			if (!config.showUnsure())
 			{

@@ -76,7 +76,7 @@ public class ItemInteractionsPlugin extends Plugin
 	@Inject
 	private Gson gson;
 
-	private static final String VERSION_NUMBER = "1.1";
+	private static final String VERSION_NUMBER = "1.2";
 
 	final TypeToken<Map<String, Collection<Integer>>> typeToken = new TypeToken<Map<String, Collection<Integer>>>(){};
 	static final String CONFIG_GROUP_KEY = "item-interactions";
@@ -378,7 +378,7 @@ public class ItemInteractionsPlugin extends Plugin
 			secondEntity = event.getId();
 			if (action == MenuAction.ITEM_USE_ON_NPC)
 			{
-				secondEntity = client.getCachedNPCs()[event.getId()].getId();
+				secondEntity = client.getCachedNPCs()[event.getId()].getComposition().getId();
 			}
 
 			waitingForNIH = true;
