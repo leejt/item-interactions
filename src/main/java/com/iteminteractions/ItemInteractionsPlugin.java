@@ -446,21 +446,4 @@ public class ItemInteractionsPlugin extends Plugin
 			}
 		}
 	}
-
-	@Subscribe
-	public void onNpcSpawned(NpcSpawned npcSpawned)
-	{
-		NPC npc = npcSpawned.getNpc();
-		if (ids.getNpcIds().contains(npc.getId()))
-		{
-			currentNpcs.add(npc);
-		}
-	}
-
-	@Subscribe
-	public void onNpcDespawned(NpcDespawned npcDespawned)
-	{
-		NPC npc = npcDespawned.getNpc();
-		currentNpcs.remove(npc);
-	}
 }

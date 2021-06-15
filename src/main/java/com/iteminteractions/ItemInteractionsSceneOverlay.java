@@ -46,9 +46,12 @@ class ItemInteractionsSceneOverlay extends Overlay
 	public Dimension render(Graphics2D graphics)
 	{
 		renderTileObjects(graphics);
-		for (NPC npc : plugin.getCurrentNpcs())
+		for (NPC npc : client.getNpcs())
 		{
-			renderNpc(graphics, npc);
+			if (plugin.getIds().getNpcIds().contains(npc.getId()))
+			{
+				renderNpc(graphics, npc);
+			}
 		}
 		return null;
 	}
